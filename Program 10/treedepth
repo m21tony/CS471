@@ -1,0 +1,16 @@
+% Name: Antonio Maldonado
+% Date: November 29, 2020
+% Input: A binary tree represented as a list
+% Output: The longest path from root to leaf
+% Preconditions: The user has to give a valid list/tree as input
+% Postconditions: n/a
+
+% The depth of nil is 0
+mydepth([], 0).
+
+% The depth of an atom is 0
+mydepth(X, 0) :- atomic(X).
+
+% mydepth of a nested list is max(depth(H), depth(T)) + 1
+% D returns the max depth of the head and tail node + 1
+mydepth([H | T], D) :- mydepth(H,D1), mydepth(T, D2), D is max(D1, D2) + 1.

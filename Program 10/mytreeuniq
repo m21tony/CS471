@@ -1,0 +1,32 @@
+% Name: Antonio Maldonado
+% Date: November 29, 2020
+% Input: A binary tree represented as a list
+% Output: A list of the unique leaves on the tree
+% Preconditions: The user has to give a valid list/tree as input
+% Postconditions: n/a
+
+% mytreeuniq will combine flatten and myunique
+% Flattens the list then returns the unique of the flattened list
+
+mytreeuniq([],[]).
+mytreeuniq([H | T], Z) :- flatten([H | T], Y), myunique(Y,Z).
+
+% Flattens a list
+% Written by Dr. Shaun Cooper
+
+flatten([],[]).
+flatten(X,[X]) :- atom(X),!.
+flatten([H | T], Z) :- flatten(H, T1), flatten(T, T2), myappend(T1, T2, Z).
+
+% We assume we always get two lists for append
+% Written by Dr. Shaun Cooper
+
+myappend([], L, L).
+myappend([H | T], L1, [H | L2]) :- myappend(T, L1, L2).
+
+% Make sure that a list has unique elements
+% Written by Dr. Shaun Cooper
+
+myunique([], []).
+myunique([H | T], L) :- member(H, T), ! , myunique(T, L).
+myunique([H | T], [H | L]) :- myunique(T, L).
